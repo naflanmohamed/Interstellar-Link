@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Omega Vespera  | InterstellarLink </title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/InterstellarLink_favicon.jpg">
+
+</head>
+<body class="antialiased">
+
+    <canvas id="starCanvas"></canvas>
+
+    <div id="bookingModal" class="fixed inset-0 z-[100] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md p-8 rounded-2xl relative transform transition-all scale-95 opacity-0" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-2xl font-bold text-white mb-2 font-header">CONFIRM LAUNCH</h3>
+            <p class="text-gray-400 mb-6">Selected Package: <span id="selectedPackage" class="text-[#00f3ff] font-bold">VIP</span></p>
+            
+            <form onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Captain's Name</label>
+                    <input type="text" required class="w-full bg-white/5 border border-white/10 rounded p-3 text-white focus:border-[#00f3ff] focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Interstellar ID (Email)</label>
+                    <input type="email" required class="w-full bg-white/5 border border-white/10 rounded p-3 text-white focus:border-[#00f3ff] focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Departure Date</label>
+                    <select class="w-full bg-white/5 border border-white/10 rounded p-3 text-white focus:border-[#00f3ff] focus:outline-none">
+                        <option>Earth Cycle: 2587-Q4</option>
+                        <option>Earth Cycle: 2588-Q1</option>
+                        <option>Earth Cycle: 2589-Q2</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full py-4 mt-4 bg-gradient-to-r from-[#bc13fe] to-[#00f3ff] text-white font-bold rounded-lg hover:opacity-90 transition-opacity">
+                    INITIATE TRANSFER
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="toast" class="fixed bottom-10 right-10 z-[100] glass-panel px-6 py-4 rounded-lg transform translate-y-24 opacity-0 transition-all duration-500 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">✓</div>
+        <div>
+            <h4 class="font-bold text-white">Transmission Received</h4>
+            <p class="text-sm text-gray-400" id="toastMessage">Your spot has been reserved.</p>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <span class="font-header text-2xl font-bold text-white tracking-widest">
+                        INTERSTELLAR<span style="color: var(--primary)">LINK</span>
+                    </span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-[#00f3ff] px-3 py-2 rounded-md text-lg font-medium transition-colors">Launchpad</a>
+                        <a href="#about" class="hover:text-[#00f3ff] px-3 py-2 rounded-md text-lg font-medium transition-colors">Omega Vespera</a>
+                        <a href="#pricing" class="hover:text-[#00f3ff] px-3 py-2 rounded-md text-lg font-medium transition-colors">Interstellar Tiers</a>
+                        <a href="#contact" class="bg-transparent border border-[#00f3ff] text-[#00f3ff] hover:bg-[#00f3ff] hover:text-black px-6 py-2 rounded-full font-bold transition-all duration-300">Find Spaceship</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20">
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <div class="space-y-6 z-10 order-2 lg:order-1 text-center lg:text-left">
+                
+                <div class="inline-block px-4 py-1 rounded-full border border-cyan-500/50 bg-cyan-900/20 text-cyan-300 text-sm tracking-widest uppercase font-bold mb-4">
+                    YEAR 2587
+                </div>
+                <div class="inline-block px-4 py-1 rounded-full border border-purple-500/50 bg-purple-900/20 text-purple-300 text-sm tracking-widest uppercase font-bold mb-4">
+                    New Planet Discovered
+                </div>
+                <div class="inline-block px-4 py-1 rounded-full border border-cyan-500/50 bg-cyan-900/20 text-cyan-300 text-sm tracking-widest uppercase font-bold mb-4">
+                    Black Hole Experience Available
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black text-white leading-tight font-header">
+                    VISIT <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f3ff] to-[#bc13fe]">Omega Vespera</span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-lg mx-auto lg:mx-0">
+                    A breathtaking exoplanet located 18 light-years away, renowned for its neon rain, time dilation effects, and crystalline cities.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <button id="warpBtn" class="btn-neon bg-gradient-to-r from-[#00f3ff] to-[#bc13fe] text-white px-8 py-4 rounded-lg font-bold text-lg uppercase tracking-wider">
+                        Fly to Omega Vespera
+                    </button>
+                    <button class="px-8 py-4 rounded-lg font-bold text-lg uppercase tracking-wider border border-gray-600 hover:border-white hover:bg-white/5 transition-colors">
+                        View Interstellar Spaceships
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center relative order-1 lg:order-2 h-[400px] lg:h-auto">
+                <div class="planet-container">
+                    <div class="planet-body"></div>
+                    <div class="planet-ring"></div>
+                    <div class="planet-ring-mask"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="border-y border-white/10 bg-black/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 py-8 px-4 text-center">
+            <div>
+                <div class="text-3xl font-header font-bold text-white">18 LY</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">Distance</div>
+            </div>
+            <div>
+                <div class="text-3xl font-header font-bold text-[#00f3ff]">1.02 G</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">Gravity</div>
+            </div>
+            <div>
+                <div class="text-3xl font-header font-bold text-[#bc13fe]">8°C</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">Avg Temp</div>
+            </div>
+            <div>
+                <div class="text-3xl font-header font-bold text-white">3 Moons</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">Orbit</div>
+            </div>
+            <div>
+                <div class="text-3xl font-header font-bold text-white">Neon Rain</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">Phenomenon</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="py-24 px-4 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 font-header">THE <span class="text-[#00f3ff]">OMEGA</span> EXPERIENCE</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Why traverse the galaxy? Because the impossible exists here.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#bc13fe] transition-colors group">
+                    <div class="h-12 w-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#bc13fe] transition-colors">
+                        <svg class="w-6 h-6 text-blue-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Neon Rain</h3>
+                    <p class="text-gray-400 text-sm">
+                        Experience "Dry Rain"—precipitation composed of pure energy particles that recharge your bio-suit without getting you wet.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#00f3ff] transition-colors group">
+                    <div class="h-12 w-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00f3ff] transition-colors">
+                        <svg class="w-6 h-6 text-cyan-300 group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Time Dilation</h3>
+                    <p class="text-gray-400 text-sm">
+                        Atmospheric Chronos Dust slows perception. A weekend trip feels like a month-long vacation.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#bc13fe] transition-colors group">
+                    <div class="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#bc13fe] transition-colors">
+                        <svg class="w-6 h-6 text-purple-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Crystalline Cities</h3>
+                    <p class="text-gray-400 text-sm">
+                        Architecture grown from seed-crystals. Stay in suspended obsidian towers connected by hard-light bridges.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#00f3ff] transition-colors group">
+                    <div class="h-12 w-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00f3ff] transition-colors">
+                        <svg class="w-6 h-6 text-cyan-300 group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Floating Islands</h3>
+                    <p class="text-gray-400 text-sm">
+                        Explore levitating landmasses suspended by the planet's unique magnetic field.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#bc13fe] transition-colors group">
+                    <div class="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#bc13fe] transition-colors">
+                        <svg class="w-6 h-6 text-purple-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Neon Forest </h3>
+                    <p class="text-gray-400 text-sm">
+                        Wander through bioluminescent flora that illuminates the night with vibrant colors.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-[#00f3ff] transition-colors group">
+                    <div class="h-12 w-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00f3ff] transition-colors">
+                        <svg class="w-6 h-6 text-cyan-300 group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Crystal Caves</h3>
+                    <p class="text-gray-400 text-sm">
+                        Descend into subterranean caverns adorned with giant luminescent crystals.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 px-4 bg-black/20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 font-header">INTERSTELLAR <span class="text-[#bc13fe]">PACKAGES</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-2xl flex flex-col border-t-4 border-gray-500">
+                    <h3 class="text-2xl font-bold text-gray-300">Interstellar Orbit</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-bold text-white">49 ₿</span>
+                        <span class="text-gray-500">/ person</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-gray-400"><span class="text-green-400 mr-2">✓</span> Economy Stasis Pod</li>
+                        <li class="flex items-center text-gray-400"><span class="text-green-400 mr-2">✓</span> Standard Habitation</li>
+                        <li class="flex items-center text-gray-400"><span class="text-green-400 mr-2">✓</span> 2 Guided Excursions</li>
+                    </ul>
+                    <button onclick="openModal('Interstellar Orbit')" class="w-full py-3 rounded border border-gray-500 text-gray-300 hover:bg-gray-800 transition-colors font-bold">SELECT ORBIT</button>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl flex flex-col border-t-4 border-[#00f3ff] transform md:-translate-y-4 shadow-[0_0_30px_rgba(0,243,255,0.15)] relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#00f3ff] text-black text-xs font-bold px-3 py-1 rounded-full uppercase">Most Popular</div>
+                    <h3 class="text-2xl font-bold text-[#00f3ff]">Interstellar VIP</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-bold text-white">99 ₿</span>
+                        <span class="text-gray-500">/ person</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-white"><span class="text-[#00f3ff] mr-2">✓</span> Priority Warp Lane</li>
+                        <li class="flex items-center text-white"><span class="text-[#00f3ff] mr-2">✓</span> Floating Villa Suite</li>
+                        <li class="flex items-center text-white"><span class="text-[#00f3ff] mr-2">✓</span> Personal Droid Assistant</li>
+                        <li class="flex items-center text-white"><span class="text-[#00f3ff] mr-2">✓</span> Unlimited Hover-Bike</li>
+                    </ul>
+                    <button onclick="openModal('Interstellar VIP')" class="w-full py-3 rounded bg-gradient-to-r from-[#00f3ff] to-cyan-600 text-black font-bold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">SELECT VIP</button>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl flex flex-col border-t-4 border-[#bc13fe]">
+                    <h3 class="text-2xl font-bold text-[#bc13fe]">Interstellar Mode</h3>
+                    <div class="my-6">
+                        <span class="text-4xl font-bold text-white">199 ₿</span>
+                        <span class="text-gray-500">/ person</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-gray-300"><span class="text-[#bc13fe] mr-2">✓</span> Private Cruiser</li>
+                        <li class="flex items-center text-gray-300"><span class="text-[#bc13fe] mr-2">✓</span> Atmosphere Control Access</li>
+                        <li class="flex items-center text-gray-300"><span class="text-[#bc13fe] mr-2">✓</span> Terraform Permit</li>
+                        <li class="flex items-center text-gray-300"><span class="text-[#bc13fe] mr-2">✓</span> Citizenship</li>
+                    </ul>
+                    <button onclick="openModal('Interstellar Mode')" class="w-full py-3 rounded border border-[#bc13fe] text-[#bc13fe] hover:bg-[#bc13fe] hover:text-white transition-colors font-bold">SELECT MODE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="border-t border-white/10 bg-black/50 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-header font-bold text-white mb-6">READY FOR DEPARTURE?</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-12">
+                <input id="footerEmail" type="email" placeholder="Enter Interstellar ID (or Email)" class="w-full md:w-80 px-6 py-4 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:border-[#00f3ff]">
+                <button onclick="handleNewsletter()" class="w-full md:w-auto px-8 py-4 bg-[#bc13fe] text-white font-bold rounded-lg hover:bg-[#a010d6] transition-colors">
+                    BOOK YOUR SPACESHIP
+                </button>
+            </div>
+            <p class="text-gray-600 text-sm">
+                © 2587 InterstellarLink Space Industries. By booking, you agree to the waiver regarding temporal displacement and euphoric side effects. All rights reserved. Design by<a href="https://www.linkedin.com/in/naflan-mohamed" class="text-[#bc13fe] hover:underline">Naflan Mohamed</a>.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
