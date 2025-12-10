@@ -3,7 +3,7 @@
 
 ## Live - <a href="https://naflanmohamed.github.io/Interstellar-Link/" >Interstellar Link - VISIT Omega Vespera </a>
 
-Interstellar Link is an single-page concept website for a futuristic space travel agency. It features a high-performance HTML5 Canvas starfield, interactive particle effects, and a CSS-only 3D planet simulation.
+Interstellar Link is a website for a futuristic space travel agency. It features a high-performance HTML5 Canvas starfield, interactive particle effects, and a CSS-only 3D planet simulation.
 
 ## Features
 
